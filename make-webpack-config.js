@@ -139,7 +139,7 @@ export default function(options) {
           /node_modules/,
           /\.test\./,
         ],
-        loader: 'babel-istanbul',
+        loader: 'isparta',
         query: {
           //cacheDirectory: true
         }
