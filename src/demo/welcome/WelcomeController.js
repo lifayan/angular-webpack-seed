@@ -8,13 +8,13 @@ export default class WelcomeController {
 
     $scope.annualIncome = 50000;
 
-    $scope.payRaise = 2.0 / 100;
+    $scope.payRaise = 0.02;
 
-    $scope.contributionRate = 9.5 / 100;
+    $scope.contributionRate = 0.095;
 
-    $scope.inflationRate = 2.0 / 100;
+    $scope.inflationRate = 0.02;
 
-    $scope.investmentReturn = 5.0 / 100;
+    $scope.investmentReturn = 0.05;
 
     $scope.age = 25;
 
@@ -45,10 +45,10 @@ export default class WelcomeController {
       //var sumBalance =
       //$scope.startBalance * (1 + $scope.investmentReturn) + $scope.annualIncome * $scope.contributionRate;
       for (var i = 0; i < yearsForSaving; i++) {
-        currentSalary = currentSalary * (1 + $scope.payRaise);
-        console.log("currentSalary", currentSalary);
-        currentBalance = currentBalance * (1 + $scope.investmentReturn) + currentSalary * $scope.contributionRate;
-        console.log("currentBalance", currentBalance);
+        currentSalary = currentSalary * (1 + Number($scope.payRaise));
+        //console.log("currentSalary", currentSalary);
+        currentBalance = currentBalance * (1 + Number($scope.investmentReturn)) + currentSalary * Number($scope.contributionRate);
+        //console.log("currentBalance", currentBalance);
       }
       return currentBalance / 1000;
     };
@@ -65,14 +65,14 @@ export default class WelcomeController {
     };
     var calculateData = function () {
 
-      var retirementYear = getRetirementYear();
+      //var retirementYear = getRetirementYear();
       var maxYear = $scope.lifeExpectiation - $scope.retirementAge;
       var balanceList = [];
       var expenseList = [];
       var currentExpense = calculateExpenseAtReitirementYear() / 1000;
       var currentBalance = retirementBalance();
-      console.log("currentExpense", currentExpense);
-      console.log("currentBalance", currentBalance);
+      //console.log("currentExpense", currentExpense);
+      //console.log("currentBalance", currentBalance);
       for (var i = 0; i <= maxYear; i++) {
         currentExpense = currentExpense * (1 + $scope.inflationRate);
 
@@ -97,7 +97,9 @@ export default class WelcomeController {
     $scope.multiAxis = ['y-axis-1', 'y-axis-2'];
 
     $scope.calculate = function () {
-      console.log("calculate");
+
+      $scope.retirementBalance = retirementBalance();
+      console.log("retirementBalance" ,$scope.retirementBalance);
       $scope.labels = getLables();
       $scope.data = calculateData();
     };
