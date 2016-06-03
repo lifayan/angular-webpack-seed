@@ -42,13 +42,9 @@ export default class WelcomeController {
       var yearsForSaving = $scope.retirementAge - $scope.age;
       var currentSalary = $scope.annualIncome;
       var currentBalance = $scope.startBalance;
-      //var sumBalance =
-      //$scope.startBalance * (1 + $scope.investmentReturn) + $scope.annualIncome * $scope.contributionRate;
       for (var i = 0; i < yearsForSaving; i++) {
-        currentSalary = currentSalary * (1 + Number($scope.payRaise));
-        //console.log("currentSalary", currentSalary);
+        currentSalary = currentSalary * (1 + $scope.payRaise);
         currentBalance = currentBalance * (1 + Number($scope.investmentReturn)) + currentSalary * Number($scope.contributionRate);
-        //console.log("currentBalance", currentBalance);
       }
       return currentBalance / 1000;
     };
@@ -71,8 +67,6 @@ export default class WelcomeController {
       var expenseList = [];
       var currentExpense = calculateExpenseAtReitirementYear() / 1000;
       var currentBalance = retirementBalance();
-      //console.log("currentExpense", currentExpense);
-      //console.log("currentBalance", currentBalance);
       for (var i = 0; i <= maxYear; i++) {
         currentExpense = currentExpense * (1 + $scope.inflationRate);
 
@@ -82,15 +76,15 @@ export default class WelcomeController {
           currentBalance = 0;
           currentExpense = 0;
         }
-        balanceList.push(currentBalance);
-        expenseList.push(currentExpense);
+        balanceList.push(Math.round(currentBalance));
+        expenseList.push(Math.round(currentExpense));
       }
-      return [balanceList, expenseList];
+      return [ expenseList, balanceList];
 
     };
 
     $scope.retirementBalance = retirementBalance();
-    $scope.series = ['Balance', 'Expense'];
+    $scope.series = ['Expense','Balance' ];
     $scope.labels = getLables();
     $scope.data = calculateData();
 
