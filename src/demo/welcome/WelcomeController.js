@@ -76,7 +76,7 @@ export default class WelcomeController {
       for (var i = 0; i <= maxYear; i++) {
         currentExpense = currentExpense * (1 + $scope.inflationRate);
 
-        currentBalance = currentBalance - currentExpense;
+        currentBalance = (currentBalance - currentExpense) * (1 + $scope.investmentReturn);
 
         if (currentBalance < 0) {
           currentBalance = 0;
@@ -118,17 +118,6 @@ export default class WelcomeController {
             position: 'right'
           }
         ]
-      }
-    };
-
-    $scope.onClick = function (points, evt) {
-      console.log(points, evt);
-    };
-    $scope.onHover = function (points) {
-      if (points.length > 0) {
-        console.log('Point', points[0].value);
-      } else {
-        console.log('No point');
       }
     };
 
